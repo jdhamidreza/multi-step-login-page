@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Login Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        success: '#10B981',
+                        destructive: '#EF4444',
+                        surface: {
+                            light: '#FFFFFF',
+                            dark: '#0B1220'
+                        },
+                        text: {
+                            light: '#0F172A',
+                            dark: '#E5E7EB'
+                        }
+                    },
+                    fontFamily: {
+                        'mono': ['SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace']
+                    },
+                    animation: {
+                        'fade-slide-in': 'fadeSlideIn 220ms ease-out',
+                        'shake': 'shake 120ms ease-in-out',
+                        'success-bounce': 'successBounce 400ms ease-out',
+                        'check-draw': 'checkDraw 600ms ease-in-out'
+                    },
+                    keyframes: {
+                        fadeSlideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(16px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '25%': { transform: 'translateX(-8px)' },
+                            '75%': { transform: 'translateX(8px)' }
+                        },
+                        successBounce: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        checkDraw: {
+                            '0%': { strokeDashoffset: '100' },
+                            '100%': { strokeDashoffset: '0' }
+                        }
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4 transition-colors">
+    
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="fixed top-4 right-4 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-200">
+        <i data-lucide="sun" class="w-5 h-5 text-gray-600 dark:text-gray-300 dark:hidden"></i>
+        <i data-lucide="moon" class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block"></i>
+    </button>
+
+    <!-- Flow Selection -->
+    <div id="flow-selection" class="w-full max-w-md">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 animate-fade-slide-in">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-primary"></i>
+                </div>
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Choose Login Method</h1>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Select your preferred method</p>
+            </div>
+            
+            <div class="space-y-3">
+                <button onclick="startFlow(1)" class="w-full p-4 text-left rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <div class="flex items-center justify-between">
+                        <div class="text-left">
+                            <h3 class="font-medium text-gray-900 dark:text-white">Classic Login</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Email + Password + Two-Factor Authentication</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center group-hover:bg-primary/10">
+                            <i data-lucide="key" class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                    </div>
+                </button>
+                
+                <button onclick="startFlow(2)" class="w-full p-4 text-left rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <div class="flex items-center justify-between">
+                        <div class="text-left">
+                            <h3 class="font-medium text-gray-900 dark:text-white">Passwordless Login</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">One-time code or magic link</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/30 flex items-center justify-center group-hover:bg-primary/10">
+                            <i data-lucide="smartphone" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                        </div>
+                    </div>
+                </button>
+                
+                <button onclick="startFlow(3)" class="w-full p-4 text-left rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <div class="flex items-center justify-between">
+                        <div class="text-left">
+                            <h3 class="font-medium text-gray-900 dark:text-white">Quick Login</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Google, Apple or common methods</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center group-hover:bg-primary/10">
+                            <i data-lucide="zap" class="w-5 h-5 text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Form Container -->
+    <div id="login-container" class="w-full max-w-md hidden">
+        <!-- Progress Stepper -->
+        <div id="progress-stepper" class="mb-8">
+            <div class="flex items-center justify-center">
+                <!-- Step 1 -->
+                <div class="flex items-center">
+                    <div id="step-1" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-sm font-medium step-circle">
+                        1
+                    </div>
+                    <div id="connector-1" class="w-16 h-0.5 bg-gray-300 dark:bg-gray-600 step-connector"></div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex items-center">
+                    <div id="step-2" class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 flex items-center justify-center text-sm font-medium step-circle">
+                        2
+                    </div>
+                    <div id="connector-2" class="w-16 h-0.5 bg-gray-300 dark:bg-gray-600 step-connector"></div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex items-center">
+                    <div id="step-3" class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 flex items-center justify-center text-sm font-medium step-circle">
+                        3
+                    </div>
+                    <div id="connector-3" class="w-16 h-0.5 bg-gray-300 dark:bg-gray-600 step-connector"></div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div id="step-4" class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 flex items-center justify-center text-sm font-medium step-circle">
+                    4
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+            
+            <!-- Back Button -->
+            <button id="back-btn" class="mb-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors hidden" onclick="goBack()">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Step Content Container -->
+            <div id="step-content" class="animate-fade-slide-in">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
