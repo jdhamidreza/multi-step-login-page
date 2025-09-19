@@ -1,3 +1,9 @@
+
+<img width="3737" height="1685" alt="image" src="https://github.com/user-attachments/assets/1f7148f9-cbd4-43e1-9f9a-6ff541b273de" />
+<img width="3767" height="1682" alt="image" src="https://github.com/user-attachments/assets/c910d464-376a-410c-9e4b-3be4e2781d4c" />
+
+
+
 # Multi-Step Login Form
 
 A modern, responsive multi-step login form built with HTML, CSS, and JavaScript. Originally designed for Farsi (Persian) users but now fully converted to English with left-to-right (LTR) layout.
@@ -165,20 +171,4 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Lucide](https://lucide.dev/) for the beautiful icon set
 - [Inter Font](https://rsms.me/inter/) for the typography
 
-## Changelog
 
-### v2.0.0
-- Converted from Farsi to English
-- Changed layout from RTL to LTR
-- Updated all text content and UI elements
-- Improved accessibility and user experience
-
-### v1.0.0
-- Initial release with Farsi support
-- Multi-step login flows
-- Theme toggle functionality
-- Responsive design
-
----
-
-**Note**: This project was originally designed for Farsi users but has been fully converted to English with proper LTR layout for international use.
